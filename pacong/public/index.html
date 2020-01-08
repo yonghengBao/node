@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <input type="number" name="start" value="101600">
+</p>
+<p>
+    <input type="number" name="end" value="101620">
+</p>
+<button class="get-list">获取电影天堂上的电影</button>
+<h2>电影列表</h2>
+<ul class="move-list">
+</ul>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    $(".get-list").click(function () {
+      let start = $("[name='start']").val()-0;
+      let end = $("[name='end']").val()-0;
+      $.ajax({
+        url:"/list",
+        data:{start,end},
+        success:function (res) {
+          let html = "";
+          for(let p of res){
+            html+=`<li><a href="${p.url}" target="_blank">${p.name}</a></li>`
+          }
+          $(".move-list").html(html)
+        }
+      })
+    })
+</script>
+</body>
+</html>

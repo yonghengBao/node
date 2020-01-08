@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="">
+    <input type="text" id="input" autocomplete="off">
+    <button type="submit">提交</button>
+</form>
+<ul class="content">
+</ul>
+<script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    $(function () {
+      let socket = io();
+      $('form').submit(function (e) {
+        e.preventDefault();
+        socket.emit('chat message',{id:1,message:$("#input").val()})
+        $("#input").val("");
+        return false;
+      })
+      // 接收消息
+      socket.on("chat message",function (msg) {
+        $(".content").append(`<li>${msg}</li>`)
+      })
+    })
+
+</script>
+</body>
+</html>
